@@ -24,19 +24,28 @@
 ## 🗂️ Project Structure
 
 ```
-contracts/
-├── EntryPoint.sol          # Core orchestrator — validates & executes UserOps
-├── SmartAccount.sol        # Multi-sig wallet (threshold signatures)
-├── SmartAccountFactory.sol # CREATE2 factory for deterministic deployment
-├── Paymaster.sol           # Gas sponsor — approves users & covers fees
-├── Target.sol              # Demo contract (setNumber)
-└── UserOp.sol              # UserOperation struct definition
-
-scripts/
-├── deploy.ts               # Deploys all contracts
-├── userOpCreator.ts        # Builds, signs, and submits a UserOp to mempool
-├── bundler.ts              # Polls mempool, simulates, and submits bundles
-└── mempool.ts              # File-based mempool (mempool.json)
+SMARTACCOUNTWITHFACTORY/
+│
+├── bundler/
+│   ├── bundler.ts          # Polls mempool, simulates, and submits bundles
+│   ├── createUserOp.ts     # Builds, signs, and submits a UserOp to mempool
+│   └── mempool.ts          # File-based mempool (mempool.json)
+│
+├── contracts/
+│   ├── EntryPoint.sol          # Core orchestrator — validates & executes UserOps
+│   ├── PayMaster.sol           # Gas sponsor — approves users & covers fees
+│   ├── SmartAccount.sol        # Multi-sig wallet (threshold signatures)
+│   ├── SmartAccountFactory.sol # CREATE2 factory for deterministic deployment
+│   ├── TargetContract.sol      # Demo contract (setNumber)
+│   └── UserOp.sol              # UserOperation struct definition
+│
+├── scripts/
+│   ├── bundler.ts          # Hardhat-runnable bundler entry
+│   └── deploy.ts           # Deploys all contracts
+│
+├── .env                    # Environment variables (RPC URL, private keys)
+├── .gitignore
+└── hardhat.config.ts       # Hardhat configuration
 ```
 
 ---
@@ -255,10 +264,12 @@ The nonce is incremented at execution time (inside `onlyEntryPoint` functions), 
 
 | Contract | Address |
 |---|---|
-| EntryPoint | `0x057ef64E23666F000b34aE31332854aCBd1c8544` |
-| SmartAccountFactory | `0x5FbDB2315678afecb367f032d93F642f64180aa3` |
-| Paymaster | `0x8464135c8F25Da09e49BC8782676a84730C318bC` |
-| Target | `0x663F3ad617193148711d28f5334eE4Ed07016602` |
+| EntryPoint | `<EntryPointAddress>` |
+| SmartAccountFactory | `<SmartAccountFactoryAddress>` |
+| Paymaster | `<PaymasterAddress>` |
+| Target | `<TargetContractAddress>` |
+
+> 🖥️ These are placeholder addresses — replace them with the addresses logged after running `deploy.ts` on your local Hardhat network.
 
 ---
 
