@@ -270,6 +270,69 @@ The nonce is incremented at execution time (inside `onlyEntryPoint` functions), 
 | Target | `<TargetContractAddress>` |
 
 > 🖥️ These are placeholder addresses — replace them with the addresses logged after running `deploy.ts` on your local Hardhat network.
+## ✅ Testing
+
+This project includes a comprehensive test suite covering all core components of the ERC-4337 smart account system, ensuring correctness, security, and reliability.
+
+---
+
+### 🔬 Test Coverage
+
+#### 🧠 SmartAccount
+- Multi-owner setup with threshold validation  
+- Signature verification (multi-sig)  
+- Nonce-based replay protection  
+- Single & batch transaction execution  
+- EntryPoint-only execution restriction  
+- ETH receive & transfer functionality  
+
+#### 🏭 SmartAccountFactory
+- Deterministic deployment using CREATE2  
+- Accurate address prediction  
+- Prevention of duplicate deployments  
+- Event emission validation  
+- Configuration verification of deployed accounts  
+
+#### ⚡ EntryPoint (Core Flow)
+- Full `handleOps` execution pipeline  
+- Single and batch transaction handling  
+- Signature validation and rejection of invalid signatures  
+- Replay attack prevention  
+- Paymaster integration handling  
+- Event emission (`UserOperationEvent`)  
+
+#### 💸 Paymaster
+- User approval with spending limits  
+- Spend limit deduction on transaction execution  
+- Owner-only access control  
+- EntryPoint-only validation enforcement  
+- Deposit and balance management  
+- Handling insufficient balance scenarios  
+
+#### 🔗 ERC-4337 Integration
+- Smart account deployment via `initCode`  
+- Execution of UserOperations  
+- Batch transaction execution  
+- Paymaster-sponsored transactions  
+- Nonce mismatch handling (invalid nonce rejection)  
+
+---
+
+### 🧪 Key Scenarios Tested
+- ✅ Valid UserOperation execution  
+- ❌ Invalid signature rejection  
+- 🔁 Replay attack prevention using nonce  
+- 🏗️ Account deployment via factory + initCode  
+- 📦 Batch transactions execution  
+- 💳 Paymaster gas sponsorship & limit reduction  
+- 🚫 Failure cases (wrong nonce, low paymaster balance)  
+
+---
+
+### ▶️ Run Tests
+
+```bash
+npx hardhat test
 
 ---
 

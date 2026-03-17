@@ -20,12 +20,12 @@ contract Paymaster {
     }
 
     modifier onlyOwner() {
-        require(msg.sender == owner);
+        require(msg.sender == owner,"Non-Owner");
         _;
     }
 
     function approveUser(address user, uint256 spendLimit) external onlyOwner {
-        approvedUsers[user] = true;
+        approvedUsers[user] = true; 
         userLimit[user] = spendLimit;
     }
 
